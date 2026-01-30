@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logística Aracaju- Gestão de Entregas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fas fa-box-open"></i>
+            <span class="logo_name">Entregas</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" onclick="showSection('clientes')"><i class="fas fa-users"></i><span>Clientes</span></a></li>
+            <li><a href="#" onclick="showSection('encomendas')"><i class="fas fa-shipping-fast"></i><span>Encomendas</span></a></li>
+        </ul>
+    </div>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1>Painel de Controle</h1>
+            <div class="user-wrapper">
+                <i class="fas fa-user-circle"></i>
+                <span>Admin</span>
+            </div>
+        </header>
+
+        <section id="section-clientes" class="content-section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Gerenciar Clientes</h3>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCliente">
+                    <i class="fas fa-plus"></i> Novo Cliente
+                </button>
+            </div>
+
+          <div class="row mb-3">
+           <div class="col-md-4">
+             <div class="input-group">
+            <input type="text" id="inputBuscaRg" class="form-control" placeholder="Buscar por RG...">
+            <button class="btn btn-outline-primary" type="button" onclick="buscarClientePorRg()">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="btn btn-outline-secondary" type="button" onclick="listarClientes(0)" title="Limpar busca">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </div>
+         </div>
+      </div>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="tabelaClientes">
+                            <thead>
+                                <tr>
+                                    <th>RG</th>
+                                    <th>Nome</th>
+                                    <th>Cidade/UF</th>
+                                    <th>Região</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                    <div id="paginacao" class="d-flex justify-content-center align-items-center mt-3">
+                   </div>
+                </div>
+            </div>
+        </section><br>
+
+     
+        <section id="section-encomendas" class="content-section">
+
+         <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="fas fa-boxes me-2"></i>Gestão de Encomendas</h3>
+        <button class="btn btn-success" onclick="prepararNovoCadastroEncomenda()">
+            <i class="fas fa-plus"></i> Nova Encomenda
+        </button>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" id="tabelaEncomendas">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Descrição</th>
+                            <th>Empresa</th>
+                            <th>Status</th>
+                            <th>Data Entrega</th>
+                            <th>Pacotes</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaEncomendas">
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="paginacaoEncomendas" class="d-flex justify-content-center mt-3"></div>
+   </section>
+
+    </main>
+
+    <div class="modal fade" id="modalCliente" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Cadastrar Novo Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCliente">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome Completo</label>
+                                <input type="text" id="nome" class="form-control" name="nome" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">RG</label>
+                                <input type="number" id="rg" class="form-control" name="rg">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Telefone</label>
+                                <input type="text" id="telefone" class="form-control" name="telefone" placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">CEP (Auto-Busca)</label>
+                                <input type="text" id="cep" class="form-control fw-bold" id="cepInput" name="cep" maxlength="8">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label">Logradouro</label>
+                                <input type="text" id="logradouro" class="form-control bg-light" name="logradouro" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" id="bairro" class="form-control bg-light" name="bairro" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Localidade/UF</label>
+                                <input type="text" id="localidade" class="form-control bg-light" name="localidade" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" id="complemento" class="form-control border-primary" name="complemento">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="formCliente" class="btn btn-primary">Salvar Cliente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title"><i class="fas fa-user-edit"></i> Editar Informações do Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarCliente">
+                    <input type="hidden" id="edit-id"> <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="edit-nome" name="nome" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="edit-telefone" name="telefone">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Complemento (Único campo editável de endereço)</label>
+                            <input type="text" class="form-control border-info" id="edit-complemento" name="complemento">
+                        </div>
+                        <div class="col-12">
+                            <div class="alert alert-light border small text-muted">
+                                <i class="fas fa-info-circle"></i> O endereço completo é vinculado ao CEP. Para alterar a rua, realize um novo cadastro.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="executarPatchCliente()" class="btn btn-info text-white">Atualizar Dados</button>
+            </div>
+        </div>
+    </div>
+</div>
+  <div class="modal fade" id="modalDetalhesCliente" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fas fa-id-card me-2"></i> Ficha do Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-4">
+                    <div class="display-6 fw-bold text-primary" id="detalhe-nome"></div>
+                    <span class="badge bg-light text-dark border" id="detalhe-rg"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="text-muted small fw-bold text-uppercase">Contato</label>
+                    <p class="mb-0"><i class="fas fa-phone text-primary me-2"></i> <span id="detalhe-telefone"></span></p>
+                </div>
+
+                <hr class="text-muted opacity-25">
+
+                <div class="mb-3">
+                    <label class="text-muted small fw-bold text-uppercase">Endereço Completo</label>
+                    <div class="d-flex align-items-start mt-2">
+                        <i class="fas fa-map-marker-alt text-danger me-3 mt-1"></i>
+                        <div>
+                            <p class="mb-0 fw-bold" id="detalhe-logradouro"></p>
+                            <p class="mb-0 text-muted" id="detalhe-bairro-cidade"></p>
+                            <p class="mb-0 text-muted" id="detalhe-cep"></p>
+                            <p class="mt-2 mb-0 p-2 bg-light border-start border-4 border-primary italic" id="detalhe-complemento"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-primary bg-opacity-10 rounded shadow-sm text-center mt-4">
+                    <small class="text-primary d-block fw-bold">REGIÃO</small>
+                    <span class="h5 mb-0 fw-bold text-primary" id="detalhe-regiao"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   
+ <div class="modal fade" id="modalEncomenda" tabindex="-1" aria-labelledby="modalEncomendaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalEncomendaLabel">
+                    <i class="fas fa-box-open me-2"></i>Registar Nova Encomenda
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <form id="formEncomenda">
+                    <div class="row g-3">
+                        
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold text-secondary">Cliente Destinatário</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-user"></i></span>
+                                <select class="form-select border-primary fw-bold" id="selectClientes" name="cliente" required>
+                                    <option value="">Selecione o cliente para vincular...</option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold text-secondary">Descrição do Conteúdo</label>
+                            <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Ex: Monitor Dell 24', Conjunto de Ferramentas">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Data Prevista de Entrega</label>
+                            <input type="date" class="form-control" name="dataEntrega" id="dataEntrega" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Quantidade de Pacotes</label>
+                            <input type="number" class="form-control" name="pacotes" id="pacotes" min="1" value="1" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Marketplace / Origem</label>
+                            <select class="form-select shadow-sm" name="empresa" id="empresa" required style="border-left: 5px solid #198754;">
+                                <option value="AMAZON">Amazon (Preto/Amarelo)</option>
+                                <option value="SHOPEE">Shopee (Laranja)</option>
+                                <option value="MERCADO_LIVRE">Mercado Livre (Amarelo)</option>
+                                <option value="ALIEXPRESS">AliExpress (Vermelho/Cinza)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Status Inicial</label>
+                            <select class="form-select shadow-sm" name="status" id="status" required style="border-left: 5px solid #ffc107;">
+                                <option value="PENDENTE">Pendente</option>
+                                <option value="ENTREGUE">Entregue</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formEncomenda" class="btn btn-success px-5 fw-bold">
+                    <i class="fas fa-save me-2"></i>Gravar Encomenda
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+     
+ <div class="modal fade" id="modalEditarEncomenda" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Atualizar Dados da Encomenda</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="formEditarEncomenda">
+                    <input type="hidden" id="editId">
+                    
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Descrição</label>
+                            <input type="text" class="form-control" id="editDescricao" name="descricao">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Data de Entrega</label>
+                            <input type="date" class="form-control" id="editData" name="dataEntrega" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Quantidade de Pacotes</label>
+                            <input type="number" class="form-control" id="editPacotes" name="pacotes" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Empresa</label>
+                            <select class="form-select border-primary" id="editEmpresa" name="empresa" required>
+                                <option value="AMAZON">Amazon</option>
+                                <option value="SHOPEE">Shopee</option>
+                                <option value="MERCADO_LIVRE">Mercado Livre</option>
+                                <option value="ALIEXPRESS">AliExpress</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-secondary">Status da Entrega</label>
+                            <select class="form-select border-warning" id="editStatus" name="status" required>
+                                <option value="PENDENTE">Pendente</option>
+                                <option value="ENTREGUE">Entregue</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formEditarEncomenda" class="btn btn-primary px-4">
+                    <i class="fas fa-sync me-2"></i>Atualizar Encomenda
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

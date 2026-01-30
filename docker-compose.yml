@@ -1,0 +1,41 @@
+services:
+  # --- BANCO DE DADOS ---
+  db-logistica:
+    image: postgres:15-alpine
+    container_name: db-entregadores
+    restart: always
+    environment:
+      - POSTGRES_DB=logistica_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=minhasenha123
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata_entregadores:/var/lib/postgresql/data
+
+  # --- BACKEND (Java 21) ---
+  api-entregadores:
+    build: .
+    container_name: api-entregadores
+    restart: on-failure
+    depends_on:
+      - db-logistica
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-logistica:5432/logistica_db
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=minhasenha123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  # --- FRONTEND (HTML/JS) ---
+  web-entregadores:
+    build: ./Logistica
+    container_name: web-entregadores
+    ports:
+      - "8081:80"
+    depends_on:
+      - api-entregadores
+
+volumes:
+  pgdata_entregadores:
