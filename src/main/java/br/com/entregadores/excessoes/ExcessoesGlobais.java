@@ -23,8 +23,9 @@ public class ExcessoesGlobais {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(msg);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?>validarCampos(MethodArgumentNotValidException ex){
-        var erros = ex.getFieldErrors()
+        var erros = ex.getFieldErrors();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros.stream().map(ValidandoCampos::new).toList());
     }
 }
