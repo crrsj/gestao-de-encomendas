@@ -13,7 +13,9 @@ import java.time.LocalDate;
 public class EncomendaDTO {
 
     private Long id;
+    @Future(message = "não pode ser anterior a data atual")
     private LocalDate dataEntrega;
+    @NotNull( message="não pode ser nulo")
     private int pacotes;
     private Empresa empresa;
     private String descricao;
