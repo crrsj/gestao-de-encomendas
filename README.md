@@ -15,7 +15,7 @@ Na raiz do projeto, execute o comando para gerar o `.jar` (pulando os testes par
 
 ```powershell
 ./mvnw clean package -DskipTests
-````
+
 docker compose up -d --build
 Frontend: http://localhost:8081
 Backend: http://localhost:8080/swagger-ui/index.html#/
