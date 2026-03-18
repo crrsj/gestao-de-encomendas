@@ -17,11 +17,13 @@ Na raiz do projeto, execute o comando para gerar o `.jar` (pulando os testes par
 ./mvnw clean package -DskipTests
 ````
 docker compose up -d --build
-````
+```
+```
 Frontend: http://localhost:8081
-````
+```
+```
 Backend: http://localhost:8080/swagger-ui/index.html#/
-````
+```
 4. Acesso aos ServiçosFrontend: http://localhost:8081API Backend: http://localhost:8080
 ✨ Funcionalidades PrincipaisGestão de Clientes: Cadastro e manutenção de dados dos clientes solicitantes.Controle de Encomendas:
 Registro de novos pedidos com descrição, peso e destino.Rastreamento de Status: Acompanhamento em tempo real (Pendente, Em Trânsito, Entregue).Vínculo de Entregadores:
