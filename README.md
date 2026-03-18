@@ -19,11 +19,20 @@ Na raiz do projeto, execute o comando para gerar o `.jar` (pulando os testes par
 docker compose up --build -d
 
 4. Acesso aos ServiçosFrontend: http://localhost:8081API Backend: http://localhost:8080
-✨ Funcionalidades PrincipaisGestão de Clientes: Cadastro e manutenção de dados dos clientes solicitantes.Controle de Encomendas: Registro de novos pedidos com descrição, peso e destino.Rastreamento de Status: Acompanhamento em tempo real (Pendente, Em Trânsito, Entregue).Vínculo de Entregadores: Sistema de atribuição de encomendas para profissionais disponíveis.Persistência de Dados: PostgreSQL 15 configurado para garantir a integridade dos dados entre reinicializações.🏗 Estrutura TécnicaBackend: Java 21 com Spring Boot 3 (Spring Data JPA, Spring Web).Frontend: HTML5, CSS3 e JavaScript puro, servido via Nginx.Banco de Dados: PostgreSQL 15.Orquestração: Docker Compose para isolamento total do ambiente.
-⚙️ Detalhes da API (Backend)A API é o coração do sistema, responsável pela lógica de negócio e comunicação segura.Tecnologias UtilizadasJava 21: Funcionalidades recentes para melhor performance.Spring Boot 3: Framework base para microserviços.Spring Data JPA / Hibernate: Abstração da camada de persistência e mapeamento ORM.
-🔗 Integração e SegurançaBanco de Dados: A comunicação ocorre via rede interna do Docker.spring.datasource.url=jdbc:postgresql://db-logistica:5432/logistica_dbCORS: Configurado para permitir requisições do endereço do Frontend (http://localhost:8081), evitando bloqueios de segurança no navegador.
-👥 Principais EndpointsCategoriaMétodoEndpointDescriçãoClientesGET/clientesLista todos os clientes cadastrados.ClientesPOST/clientesCadastra um novo cliente.ClientesGET/clientes/{id}Busca detalhes de um cliente específico.EncomendasGET/encomendasLista todas as encomendas e seus status.EncomendasPOST/encomendasRegistra nova encomenda vinculada a um cliente.EncomendasPUT/encomendas/{id}/statusAtualiza o status (ex: Pendente -> Entregue).
-🛠 Comandos ÚteisAçãoComandoVerificar containers ativosdocker psAcompanhar logs da APIdocker compose logs api-entregadores -fParar os serviçosdocker compose stopReiniciar containersdocker compose restart
+✨ Funcionalidades PrincipaisGestão de Clientes: Cadastro e manutenção de dados dos clientes solicitantes.Controle de Encomendas:
+Registro de novos pedidos com descrição, peso e destino.Rastreamento de Status: Acompanhamento em tempo real (Pendente, Em Trânsito, Entregue).Vínculo de Entregadores:
+Sistema de atribuição de encomendas para profissionais disponíveis.Persistência de Dados: PostgreSQL 15 configurado para garantir a integridade dos dados entre reinicializações.
+🏗 Estrutura TécnicaBackend: Java 21 com Spring Boot 3 (Spring Data JPA, Spring Web).Frontend: HTML5, CSS3 e JavaScript puro, servido via Nginx.Banco de Dados: PostgreSQL
+15.Orquestração: Docker Compose para isolamento total do ambiente.
+⚙️ Detalhes da API (Backend)A API é o coração do sistema, responsável pela lógica de negócio e comunicação segura.Tecnologias UtilizadasJava 21:
+ Funcionalidades recentes para melhor performance.Spring Boot 3: Framework base para microserviços.Spring Data JPA / Hibernate: Abstração da camada de persistência e mapeamento ORM.
+🔗 Integração e SegurançaBanco de Dados: A comunicação ocorre via rede interna do Docker.spring.datasource.url=jdbc:postgresql://db-logistica:5432/logistica_dbCORS:
+Configurado para permitir requisições do endereço do Frontend (http://localhost:8081), evitando bloqueios de segurança no navegador.
+👥 Principais EndpointsCategoriaMétodoEndpointDescriçãoClientesGET/clientesLista todos os clientes cadastrados.ClientesPOST/clientesCadastra
+um novo cliente.ClientesGET/clientes/{id}Busca detalhes de um cliente específico.EncomendasGET/encomendasLista todas as encomendas e
+seus status.EncomendasPOST/encomendasRegistra nova encomenda vinculada a um cliente.EncomendasPUT/encomendas/{id}/statusAtualiza o status (ex: Pendente -> Entregue).
+🛠 Comandos ÚteisAçãoComandoVerificar containers ativosdocker psAcompanhar logs da APIdocker compose logs api-entregadores -f Parar os serviços
+docker compose stop Reiniciar containersdocker compose restart
 
 ````
 
