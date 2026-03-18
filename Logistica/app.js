@@ -11,7 +11,7 @@ document.getElementById('cep').addEventListener('blur', function(e) {
                     document.getElementById('logradouro').value = data.logradouro;
                     document.getElementById('bairro').value = data.bairro;
                     document.getElementById('localidade').value = data.localidade + " / " + data.uf;
-                    // O campo complemento o usuário digita manualmente
+                 
                 }
             });
     }
