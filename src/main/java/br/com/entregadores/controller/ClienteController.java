@@ -73,7 +73,7 @@ public class ClienteController {
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
     })
-    public ResponseEntity<ClienteDTO>atualizarCliente(@PathVariable Long id,@RequestBody ClienteDTO clienteDTO){
+    public ResponseEntity<ClienteDTO>atualizarCliente(@PathVariable Long id,@RequestBody  @Valid  ClienteDTO clienteDTO){
         return ResponseEntity.ok(clienteService.atualizarCliente(id, clienteDTO));
     }
 
