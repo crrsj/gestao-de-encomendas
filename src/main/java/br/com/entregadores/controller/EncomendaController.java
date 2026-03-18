@@ -64,7 +64,7 @@ public class EncomendaController {
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
     })
-    public ResponseEntity<EncomendaDTO>atualizarEncomenda(@PathVariable Long id,@RequestBody EncomendaDTO encomendaDTO){
+    public ResponseEntity<EncomendaDTO>atualizarEncomenda(@PathVariable Long id,@RequestBody  @Valid  EncomendaDTO encomendaDTO){
         return ResponseEntity.ok(encomendaService.atualizarEncomenda(id,encomendaDTO));
     }
 
