@@ -24,8 +24,7 @@ public class EncomendaController {
 
     private final EncomendaService encomendaService;
 
-    @PostMapping("/{clienteId}")
-    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/{clienteId}")  
     @Operation(summary = "endpoint responsável por cadastrar encomenda.")
     @ApiResponse(responseCode = "201", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -49,7 +48,6 @@ public class EncomendaController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "endpoint responsável pela busca de encomenda pelo id.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -58,8 +56,7 @@ public class EncomendaController {
         return ResponseEntity.ok(encomendaService.buscarEncomendaPorId(id));
     }
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{id}") 
     @Operation(summary = "endpoint responsável pela atualização da encomenda.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -68,8 +65,7 @@ public class EncomendaController {
         return ResponseEntity.ok(encomendaService.atualizarEncomenda(id,encomendaDTO));
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}") 
     @Operation(summary = "endpoint responsável por excluir encomenda.")
     @ApiResponse(responseCode = "204", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
