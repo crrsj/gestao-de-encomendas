@@ -36,8 +36,7 @@ public class EncomendaController {
         return ResponseEntity.created(uri).body(encomenda);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping   
     @Operation(summary = "endpoint responsável pela busca de encomendas.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
