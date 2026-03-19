@@ -23,8 +23,7 @@ public class ClienteController {
 
     private final ClienteService clienteService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @PostMapping  
     @Operation(summary = "endpoint responsável por cadastro de clientes.")
     @ApiResponse(responseCode = "201", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -36,8 +35,7 @@ public class ClienteController {
         return ResponseEntity.created(uri).body(cliente);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping 
     @Operation(summary = "endpoint responsável pela busca de clientes.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -47,8 +45,7 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
-    @GetMapping("/rg")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/rg") 
     @Operation(summary = "endpoint responsável por buscar clientes pelo rg.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -67,8 +64,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.buscarPorRegiao(regiao, pageable));
     }
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{id}")  
     @Operation(summary = "endpoint responsável por atualizar clientes.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -77,8 +73,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.atualizarCliente(id, clienteDTO));
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")  
     @Operation(summary = "endpoint responsável por deletar cliente.")
     @ApiResponse(responseCode = "204", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
@@ -88,8 +83,7 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")   
     @Operation(summary = "endpoint responsável por buscar cliente pelo id.")
     @ApiResponse(responseCode = "200", description = " success", content = {
             @Content(mediaType = "application.json", schema = @Schema(implementation = ResponseEntity.class))
